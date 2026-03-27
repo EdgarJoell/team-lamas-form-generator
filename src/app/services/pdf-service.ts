@@ -1,30 +1,31 @@
 import { Injectable } from '@angular/core';
-import {PDFCheckBox, PDFDocument, PDFDropdown, PDFRadioGroup, PDFTextField} from "pdf-lib";
+import {PDFCheckBox, PDFDocument, PDFDropdown, PDFField, PDFRadioGroup, PDFTextField} from "pdf-lib";
 import {PDFFields} from '../models/PDFFields';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PdfService {
-  async inspectFields() {
-    const formBytes = await fetch('assets/blank-pdf.pdf').then(r => r.arrayBuffer());
-    const pdfDoc = await PDFDocument.load(formBytes);
-    const form = pdfDoc.getForm();
+  async fetchAndBuild(): Promise<PDFDocument> {
+    const formBytes: ArrayBuffer = await fetch('assets/blank-pdf.pdf').then(r => r.arrayBuffer());
+    return await PDFDocument.load(formBytes);
+  }
 
-    const fields = form.getFields();
-    fields.forEach(field => {
+  async inspectFields(): Promise<void> {
+    const document: PDFDocument = await this.fetchAndBuild();
+
+    const fields: PDFField[] = document.getForm().getFields();
+    fields.forEach((field: PDFField) => {
       console.log(field.getName());
     });
   }
 
-  async fillOutPDFFields(fields: PDFFields) {
+  async fillOutPDFFields(fields: PDFFields): Promise<void> {
     const fileName: string = `${fields.date}-bill-of-lading.pdf`;
-    const formBytes = await fetch('assets/blank-pdf.pdf').then(r => r.arrayBuffer());
-    const pdfDoc = await PDFDocument.load(formBytes);
-    const form = pdfDoc.getForm();
+    const pdfDoc: PDFDocument = await this.fetchAndBuild();
 
     for (const [fieldName, value] of Object.entries(fields)) {
-      const field = form.getField(fieldName);
+      const field: PDFField = pdfDoc.getForm().getField(fieldName);
 
       if (field instanceof PDFTextField) {
         if (fieldName === 'si') {
@@ -43,10 +44,8 @@ export class PdfService {
       }
     }
 
-
-    await pdfDoc.save();
-    form.flatten()
-    const pdfBytes = await pdfDoc.save();
+    pdfDoc.getForm().flatten()
+    const pdfBytes: Uint8Array = await pdfDoc.save();
 
     this.triggerDownload(pdfBytes, fileName);
   }
