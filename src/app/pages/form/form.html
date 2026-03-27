@@ -1,0 +1,91 @@
+<div>
+  <form [formGroup]="formBody" (ngSubmit)="submitForm()">
+    <div>
+      <label for="date" >Date: </label>
+      <input id="date" type="date" formControlName="date" />
+    </div>
+
+    <div>
+      <label for="trailerNumber">Trailer Number: </label>
+      <input id="trailerNumber" formControlName="trailerNumber">
+    </div>
+
+    <div formGroupName="shipFrom">
+      <h3>Ship From: </h3>
+      <div>
+        <label for="shipFromName">Name: </label>
+        <input id="shipFromName" formControlName="name">
+      </div>
+      <div>
+        <label for="shipFromAddress">Address: </label>
+        <input id="shipFromAddress" formControlName="address">
+      </div>
+      <div>
+        <label for="shipFromCity">City: </label>
+        <input id="shipFromCity" formControlName="city">
+      </div>
+      <div>
+        <label for="shipFromState">State: </label>
+        <input id="shipFromState" formControlName="state">
+      </div>
+      <div>
+        <label for="shipFromZip">Zip: </label>
+        <input id="shipFromZip" formControlName="zip">
+      </div>
+      <div>
+        <label for="shipFromSid">SID#: </label>
+        <input id="shipFromSid" formControlName="sid">
+      </div>
+    </div>
+
+    <div formGroupName="shipTo">
+      <h3>Ship To: </h3>
+      <div>
+        <label for="shipToName">Name: </label>
+        <input id="shipToName" formControlName="name">
+      </div>
+      <div>
+        <label for="shipToAddress">Address: </label>
+        <input id="shipToAddress" formControlName="address">
+      </div>
+      <div>
+        <label for="shipToCity">City: </label>
+        <input id="shipToCity" formControlName="city">
+      </div>
+      <div>
+        <label for="shipToState">State: </label>
+        <input id="shipToState" formControlName="state">
+      </div>
+      <div>
+        <label for="shipToZip">Zip: </label>
+        <input id="shipToZip" formControlName="zip">
+      </div>
+      <div>
+        <label for="shipToCid">CID#: </label>
+        <input id="shipToCid" formControlName="cid">
+      </div>
+    </div>
+
+    <div formGroupName="specialInstructions">
+      <h3>Special Instructions: </h3>
+      <div>
+        <label for="specialInstructionsEmptyMiles">Empty Miles: </label>
+        <input id="specialInstructionsEmptyMiles" formControlName="emptyMiles">
+      </div>
+      <div>
+        <label for="specialInstructionsFreightBill">Freight Bill: </label>
+        <input id="specialInstructionsFreightBill" formControlName="freightBill">
+      </div>
+      <div>
+        <label for="specialInstructionsOwed">Owed: </label>
+        <input id="specialInstructionsOwed" formControlName="owed">
+      </div>
+      <div>
+        <label for="specialInstructionsTruckNumber">Truck #: </label>
+        <input id="specialInstructionsTruckNumber" formControlName="truckNumber">
+      </div>
+    </div>
+
+    <button type="submit">Generate PDF</button>
+  </form>
+</div>
