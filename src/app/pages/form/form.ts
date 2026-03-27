@@ -43,8 +43,6 @@ export class Form {
   })
 
   async submitForm() {
-    await this.pdfService.inspectFields();
-
     if (!this.formBody) return;
 
     const pdfFields: PDFFields = {
