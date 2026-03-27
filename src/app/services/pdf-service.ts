@@ -11,6 +11,8 @@ export class PdfService {
     return await PDFDocument.load(formBytes);
   }
 
+  // SHOULD ONLY BE USED TO RETRIEVE PDF FIELDS WHEN IN DEVELOPMENT!!
+  // SHOULD NOT BE USED IN PRODUCTION!!
   async inspectFields(): Promise<void> {
     const document: PDFDocument = await this.fetchAndBuild();
 
