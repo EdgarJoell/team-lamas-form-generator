@@ -27,7 +27,13 @@ export class PdfService {
       const field = form.getField(fieldName);
 
       if (field instanceof PDFTextField) {
-        field.setText(String(value));
+        if (fieldName === 'si') {
+          field.enableMultiline();
+          field.setFontSize(0);
+          field.setText(fields.si);
+        } else {
+          field.setText(String(value));
+        }
       } else if (field instanceof PDFCheckBox) {
         value ? field.check() : field.uncheck();
       } else if (field instanceof PDFDropdown) {
@@ -37,7 +43,11 @@ export class PdfService {
       }
     }
 
+
+    await pdfDoc.save();
+    form.flatten()
     const pdfBytes = await pdfDoc.save();
+
     this.triggerDownload(pdfBytes, fileName);
   }
 
