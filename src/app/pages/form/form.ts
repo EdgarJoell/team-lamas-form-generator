@@ -1,5 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {PdfService} from '../../services/pdf-service';
+import {PDFFields} from '../../models/PDFFields';
 
 @Component({
   selector: 'app-form',
@@ -11,18 +13,18 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 })
 export class Form {
   formBuilder = inject(FormBuilder);
+  pdfService = inject(PdfService);
 
   formBody = this.formBuilder.group({
     date: ['', Validators.required],
     trailerNumber: ['', Validators.required],
-    proNumber: ['', Validators.required],
     shipFrom: this.formBuilder.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
-      sid: ['', Validators.required],
+      sid: [''],
     }),
     shipTo: this.formBuilder.group({
       name: ['', Validators.required],
@@ -30,7 +32,7 @@ export class Form {
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
-      cid: ['', Validators.required],
+      cid: [''],
     }),
     specialInstructions: this.formBuilder.group({
       emptyMiles: ['', Validators.required],
@@ -40,30 +42,44 @@ export class Form {
     })
   })
 
-  submitForm() {
-    const builtObject = {
-      date: this.formBody.get('date'),
-      carrierName: `Landstar (Truck # - ${this.formBody.value.specialInstructions?.truckNumber}`,
-      trailerNumber: this.formBody.value.trailerNumber,
-      proNumber: this.formBody.value.specialInstructions?.freightBill,
+  async submitForm() {
+    await this.pdfService.inspectFields();
+
+    if (!this.formBody) return;
+
+    const pdfFields: PDFFields = {
+      date: this.formBody.value.date,
+      sfname: this.formBody.value.shipFrom?.name,
+      sfadd: this.formBody.value.shipFrom?.address,
+      sfcsz: `${this.formBody.value.shipFrom?.city}, ${this.formBody.value.shipFrom?.state} ${this.formBody.value.shipFrom?.city}`,
+      sfsid: this.formBody.value.shipFrom?.sid?.length === 0 ? this.formBody.value.specialInstructions?.freightBill : this.formBody.value.shipFrom?.sid,
+      cn: `Landstar (Truck # - ${this.formBody.value.specialInstructions?.truckNumber})`,
+      stname: this.formBody.value.shipTo?.name,
+      stadd: this.formBody.value.shipTo?.address,
+      tn: this.formBody.value.trailerNumber,
+      stcsz: `${this.formBody.value.shipTo?.city}, ${this.formBody.value.shipTo?.state} ${this.formBody.value.shipTo?.city}`,
       scac: "LSTR",
-      shipFrom: {
-        name: this.formBody.value.shipFrom?.name,
-        address: this.formBody.value.shipFrom?.address,
-        cityStateZip: `${this.formBody.value.shipFrom?.city}, ${this.formBody.value.shipFrom?.state} ${this.formBody.value.shipFrom?.city}`,
-        sid: this.formBody.value.shipFrom?.sid,
-      },
-      shipTo: {
-        name: this.formBody.value.shipTo?.name,
-        address: this.formBody.value.shipTo?.address,
-        cityStateZip: `${this.formBody.value.shipTo?.city}, ${this.formBody.value.shipTo?.state} ${this.formBody.value.shipTo?.city}`,
-        cid: this.formBody.value.shipTo?.cid
-      },
-      specialInstructions: `EMPTY MILES: ${this.formBody.value.specialInstructions?.emptyMiles} - FREIGHT BILL: ${this.formBody.value.specialInstructions?.freightBill} - OWED: ${this.formBody.value.specialInstructions?.owed} per mile for ${this.formBody.value.specialInstructions?.emptyMiles} Miles - TRUCK #: ${this.formBody.value.specialInstructions?.truckNumber}`,
+      stsid: this.formBody.value.shipTo?.cid,
+      pro: this.formBody.value.specialInstructions?.freightBill,
+      si: `EMPTY MILES: ${this.formBody.value.specialInstructions?.emptyMiles} - FREIGHT BILL: ${this.formBody.value.specialInstructions?.freightBill} - OWED: ${this.formBody.value.specialInstructions?.owed} per mile for ${this.formBody.value.specialInstructions?.emptyMiles} Miles - TRUCK #: ${this.formBody.value.specialInstructions?.truckNumber}`,
+      pp: "X",
+      con1: this.formBody.value.specialInstructions?.freightBill,
+      pkgs1: this.formBody.value.specialInstructions?.emptyMiles,
+      wgt1: "1",
+      psy1: "N",
+      psn1: "N",
+      asi1: `REIMBURSE EMPTY MILES (${this.formBody.value.specialInstructions?.emptyMiles})`,
+      cd1: `EMPTY MILES (${this.formBody.value.specialInstructions?.emptyMiles})`,
+      cd2: `*** REIMBURSE ${this.formBody.value.specialInstructions?.emptyMiles} EMPTY MILES`,
+      value: `${this.formBody.value.specialInstructions?.owed}c/mi`,
+      per: "Mile",
+      "Check Box6": "X",
+      "Check Box8": "X",
+      "Check Box9": "X",
+      Text1: this.formBody.value.date,
+      Text2: this.formBody.value.specialInstructions?.truckNumber
     }
 
-    console.log("Object So Far: ", builtObject);
+    await this.pdfService.fillOutPDFFields(pdfFields);
   }
-
-  protected readonly Date = Date;
 }
