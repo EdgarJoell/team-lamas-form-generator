@@ -38,7 +38,7 @@ export class Form {
       emptyMiles: ['', Validators.required],
       freightBill: ['', Validators.required],
       owed: ['', Validators.required],
-      truckNumber: ['', Validators.required],
+      truckNumber: ['580636', Validators.required],
     })
   })
 
