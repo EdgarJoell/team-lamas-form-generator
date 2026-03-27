@@ -1,7 +1,25 @@
-#home-container {
+h1 {
+  text-align: center;
+  margin-top: 0;
+  padding-top: 1.5rem;
+}
+
+img {
+  margin: auto 2rem auto 2rem;
+}
+
+#header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  background-color: beige;
+  flex-wrap: wrap;
+}
+
+#home-container {
+  background-color: white;
+  width: 85%;
+  max-width: 32rem;
+  margin: 2rem auto;
+  padding-top: 1rem;
+  box-shadow: 6px 6px 8px;
 }

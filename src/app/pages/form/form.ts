@@ -14,9 +14,11 @@ import {PDFFields} from '../../models/PDFFields';
 export class Form {
   formBuilder = inject(FormBuilder);
   pdfService = inject(PdfService);
+  today: Date = new Date();
+  buildDate: string = `${this.today.getFullYear()}-${String(this.today.getMonth() + 1).padStart(2, '0')}-${String(this.today.getDate()).padStart(2, '0')}`;
 
   formBody = this.formBuilder.group({
-    date: ['', Validators.required],
+    date: [this.buildDate, Validators.required],
     trailerNumber: ['', Validators.required],
     shipFrom: this.formBuilder.group({
       name: ['', Validators.required],
