@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Form } from './form';
+import { LayoverForm } from './layover-form';
 
-describe('Form', () => {
-  let component: Form;
-  let fixture: ComponentFixture<Form>;
+describe('LayoverForm', () => {
+  let component: LayoverForm;
+  let fixture: ComponentFixture<LayoverForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Form],
+      imports: [LayoverForm],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Form);
+    fixture = TestBed.createComponent(LayoverForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
