@@ -1,0 +1,16 @@
+<div id="verification-dropdown">
+  <div id="verification-container">
+    <h3>Are you actually Team Lamas?</h3>
+
+    @if (isLastChance()) {
+      <h4>!!LAST CHANCE!!</h4>
+    }
+
+    <div class="input-div">
+      <label for="verification-pin">PIN: </label>
+      <input id="verification-pin" [value]="password()" type="password" pattern="[0-9]*" autocomplete="off" maxlength="4" inputmode="numeric" (input)="updatePassword($event)">
+    </div>
+
+    <button (click)="checkPassword()">Verify</button>
+  </div>
+</div>
