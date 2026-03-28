@@ -1,4 +1,4 @@
-export interface PDFFields {
+export interface EmptyMilesPDFFields {
   date?: string | null,
   sfname?: string | null,
   sfadd?: string | null,
@@ -29,4 +29,12 @@ export interface PDFFields {
   "Check Box9": string,
   Text1?: string | null,
   Text2?: string | null
+}
+
+export interface GuaranteePDFFields {
+  [key: string]: string
+}
+
+export interface LayoverPDFFields {
+  [ket: string]: string
 }
