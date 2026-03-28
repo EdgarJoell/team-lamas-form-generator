@@ -1,0 +1,14 @@
+select {
+}
+
+#base-container {
+  width: 100%;
+  margin: auto;
+}
+
+#form-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}

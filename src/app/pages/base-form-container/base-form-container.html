@@ -1,0 +1,16 @@
+<div id="base-container">
+  <div id="form-select">
+    <p>Choose Your Form:</p>
+    <select (change)="chosen($event)">
+      <option value="null">Select Form</option>
+      @for (form of forms; track form.name) {
+        <option [value]="form.name">{{ form.title }}</option>
+      }
+    </select>
+  </div>
+
+  @if (chosenForm()) {
+    <ng-container [ngComponentOutlet]="chosenForm()!.component" />
+  }
+</div>
+
