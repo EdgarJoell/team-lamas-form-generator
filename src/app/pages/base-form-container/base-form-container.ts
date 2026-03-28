@@ -3,13 +3,11 @@ import {FormType} from '../../models/FormType';
 import {EmptyMilesForm} from '../../forms/empty-miles-form/empty-miles-form';
 import {LayoverForm} from '../../forms/layover-form/layover-form';
 import {GuaranteeForm} from '../../forms/guarantee-form/guarantee-form';
-import {VerificationModal} from '../../components/verification-modal/verification-modal';
 import {NgComponentOutlet} from '@angular/common';
 
 @Component({
   selector: 'app-base-form-container',
   imports: [
-    VerificationModal,
     NgComponentOutlet
   ],
   templateUrl: './base-form-container.html',
