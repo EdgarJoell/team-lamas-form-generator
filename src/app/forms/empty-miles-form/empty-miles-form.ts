@@ -1,21 +1,25 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal, WritableSignal} from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import {PdfService} from '../../services/pdf-service';
-import {PDFFields} from '../../models/PDFFields';
+import {PdfService} from '../../services/pdf/pdf-service';
+import {EmptyMilesPDFFields} from '../../models/CustomPDFFields';
+import {VerificationModal} from '../../components/verification-modal/verification-modal';
 
 @Component({
   selector: 'app-form',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    VerificationModal
   ],
-  templateUrl: './form.html',
-  styleUrl: './form.css',
+  templateUrl: './empty-miles-form.html',
+  styleUrl: './empty-miles-form.css',
 })
-export class Form {
-  formBuilder = inject(FormBuilder);
-  pdfService = inject(PdfService);
+export class EmptyMilesForm {
+  formBuilder: FormBuilder = inject(FormBuilder);
+  pdfService: PdfService = inject(PdfService);
   today: Date = new Date();
   buildDate: string = `${this.today.getFullYear()}-${String(this.today.getMonth() + 1).padStart(2, '0')}-${String(this.today.getDate()).padStart(2, '0')}`;
+  isInVerification: WritableSignal<boolean> = signal(false);
+  isVerified: WritableSignal<boolean | undefined> = signal(undefined);
 
   formBody = this.formBuilder.group({
     date: [this.buildDate, Validators.required],
@@ -45,9 +49,9 @@ export class Form {
   })
 
   async submitForm() {
-    if (!this.formBody) return;
+    if (!this.formBody || this.isVerified() === false) return;
 
-    const pdfFields: PDFFields = {
+    const pdfFields: EmptyMilesPDFFields = {
       date: this.formBody.value.date,
       sfname: this.formBody.value.shipFrom?.name,
       sfadd: this.formBody.value.shipFrom?.address,
@@ -80,6 +84,22 @@ export class Form {
       Text2: this.formBody.value.specialInstructions?.truckNumber
     }
 
+    console.log("Successful Verification. Here's the Body: ", pdfFields);
     await this.pdfService.fillOutPDFFields(pdfFields);
+  }
+
+  async handleIsVerified(isTeamLamas: boolean) {
+    if (isTeamLamas) {
+      this.isVerified.set(true);
+      await this.submitForm();
+    } else {
+      this.isVerified.set(false);
+    }
+
+    this.isInVerification.set(false);
+  }
+
+  startVerification() {
+    this.isInVerification.set(true);
   }
 }
