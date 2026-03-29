@@ -89,6 +89,7 @@
     </div>
 
     <div class="button">
+      <button type="button" (click)="resetForm()">Reset Form</button>
       <button type="button" (click)="startVerification()" [disabled]="formBody.invalid">Generate PDF</button>
     </div>
   </form>

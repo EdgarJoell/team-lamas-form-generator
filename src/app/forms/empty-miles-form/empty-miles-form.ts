@@ -102,4 +102,33 @@ export class EmptyMilesForm {
   startVerification() {
     this.isInVerification.set(true);
   }
+
+  resetForm() {
+    this.formBody.reset({
+      date: this.buildDate,
+      trailerNumber: '',
+      shipFrom: {
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        sid: '',
+      },
+      shipTo: {
+        name: '',
+        address: '',
+        city: '',
+        state: '',
+        zip: '',
+        cid: '',
+      },
+      specialInstructions: {
+        emptyMiles: '',
+        freightBill: '',
+        owed: '',
+        truckNumber: '580636',
+      }
+    });
+  }
 }
