@@ -22,11 +22,14 @@ export class VerificationModal {
 
     if (!isTeamLamas && this.isLastChance()) {
       this.isVerified.emit(false);
+      this.verificationService.isAllowed.set(false);
     } else if (!isTeamLamas && !this.isLastChance()) {
       this.isLastChance.set(true);
       this.password.set("");
     } else {
       this.isVerified.emit(true);
+      this.password.set("");
+      this.isLastChance.set(false);
     }
   }
 }
