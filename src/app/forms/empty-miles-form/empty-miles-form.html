@@ -1,6 +1,4 @@
-@if (isVerified() === false) {
-  <h3>You're not supposed to be here...</h3>
-} @else {
+@if (verificationService.isAllowed()) {
   <form [formGroup]="formBody">
     <div class="input-div">
       <label for="date" >Date: </label>
@@ -93,6 +91,8 @@
       <button type="button" (click)="startVerification()" [disabled]="formBody.invalid">Generate PDF</button>
     </div>
   </form>
+} @else {
+  <h3>You're not supposed to be here...</h3>
 }
 
 @if (isInVerification()) {

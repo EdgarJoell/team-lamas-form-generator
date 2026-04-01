@@ -3,6 +3,7 @@ import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {PdfService} from '../../services/pdf/pdf-service';
 import {EmptyMilesPDFFields} from '../../models/CustomPDFFields';
 import {VerificationModal} from '../../components/verification-modal/verification-modal';
+import {VerificationService} from '../../services/verification/verification-service';
 
 @Component({
   selector: 'app-form',
@@ -16,10 +17,10 @@ import {VerificationModal} from '../../components/verification-modal/verificatio
 export class EmptyMilesForm {
   formBuilder: FormBuilder = inject(FormBuilder);
   pdfService: PdfService = inject(PdfService);
+  verificationService: VerificationService = inject(VerificationService);
   today: Date = new Date();
   buildDate: string = `${this.today.getFullYear()}-${String(this.today.getMonth() + 1).padStart(2, '0')}-${String(this.today.getDate()).padStart(2, '0')}`;
   isInVerification: WritableSignal<boolean> = signal(false);
-  isVerified: WritableSignal<boolean | undefined> = signal(undefined);
 
   formBody = this.formBuilder.group({
     date: [this.buildDate, Validators.required],
@@ -49,7 +50,7 @@ export class EmptyMilesForm {
   })
 
   async submitForm() {
-    if (!this.formBody || this.isVerified() === false) return;
+    if (!this.formBody || !this.verificationService.isVerified()) return
 
     const pdfFields: EmptyMilesPDFFields = {
       date: this.formBody.value.date,
@@ -87,18 +88,24 @@ export class EmptyMilesForm {
   }
 
   async handleIsVerified(isTeamLamas: boolean) {
+    if (this.verificationService.isVerified()) return;
+
     if (isTeamLamas) {
-      this.isVerified.set(true);
+      this.verificationService.isVerified.set(true);
       await this.submitForm();
     } else {
-      this.isVerified.set(false);
+      this.verificationService.isVerified.set(false);
     }
 
     this.isInVerification.set(false);
   }
 
-  startVerification() {
-    this.isInVerification.set(true);
+  async startVerification() {
+    if (this.verificationService.isVerified()) {
+      await this.submitForm();
+    } else {
+      this.isInVerification.set(true);
+    }
   }
 
   resetForm() {
