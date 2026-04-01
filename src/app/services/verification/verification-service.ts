@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal, WritableSignal} from '@angular/core';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable({
@@ -6,6 +6,8 @@ import * as bcrypt from 'bcryptjs';
 })
 export class VerificationService {
   private hashedPassword: string = "$2b$10$B9Ufro.8pkcecJ1W4cdYKu6ZKGB.a.Lj4i4pAJFyM1jfivRFIguhK";
+  isVerified: WritableSignal<boolean> = signal(false);
+  isAllowed: WritableSignal<boolean> = signal(true);
 
   // Here for when we want to change the hashed password,
   // Not to be used in Production
