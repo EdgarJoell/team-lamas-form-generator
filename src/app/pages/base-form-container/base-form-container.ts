@@ -16,7 +16,7 @@ import {NgComponentOutlet} from '@angular/common';
 export class BaseFormContainer {
   forms: FormType[] = [
     { name: 'empty-miles', title: "Empty Miles", component: EmptyMilesForm },
-    { name: "layover", title: "Layover", component: LayoverForm },
+    { name: "layover", title: "Layover (TONU)", component: LayoverForm },
     { name: "guarantee", title: "Guarantee", component: GuaranteeForm }
   ]
   chosenForm: WritableSignal<FormType | null> = signal(null);
