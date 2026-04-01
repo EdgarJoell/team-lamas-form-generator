@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {PDFCheckBox, PDFDocument, PDFDropdown, PDFField, PDFRadioGroup, PDFTextField} from "pdf-lib";
 import {EmptyMilesPDFFields, GuaranteePDFFields, LayoverPDFFields} from '../../models/CustomPDFFields';
 
@@ -6,9 +6,20 @@ import {EmptyMilesPDFFields, GuaranteePDFFields, LayoverPDFFields} from '../../m
   providedIn: 'root',
 })
 export class PdfService {
+  private pdfBytes: ArrayBuffer | null = null;
+
   async fetchAndBuild(): Promise<PDFDocument> {
-    const formBytes: ArrayBuffer = await fetch('assets/blank-pdf.pdf').then(r => r.arrayBuffer());
-    return await PDFDocument.load(formBytes);
+    this.pdfBytes ??= await fetch('assets/blank-pdf.pdf').then(r => r.arrayBuffer());
+
+    if (!this.pdfBytes) {
+      throw new Error('No pdf available');
+    }
+
+    return await PDFDocument.load(this.pdfBytes);
+  }
+
+  async fetchAndSetPdfBytes() {
+    this.pdfBytes = await fetch('assets/blank-pdf.pdf').then(r => r.arrayBuffer());
   }
 
   // SHOULD ONLY BE USED TO RETRIEVE PDF FIELDS WHEN IN DEVELOPMENT!!
@@ -23,7 +34,7 @@ export class PdfService {
   }
 
   async fillOutPDFFields(fields: EmptyMilesPDFFields | GuaranteePDFFields | LayoverPDFFields): Promise<void> {
-    const fileName: string = `${fields.date}-bill-of-lading.pdf`;
+    const fileName: string = `${fields.date}-bill-of-lading-${fields.con1}.pdf`;
     const pdfDoc: PDFDocument = await this.fetchAndBuild();
 
     for (const [fieldName, value] of Object.entries(fields)) {
