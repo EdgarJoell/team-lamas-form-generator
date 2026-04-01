@@ -25,7 +25,7 @@ export class EmptyMilesForm {
     date: [this.buildDate, Validators.required],
     trailerNumber: ['', Validators.required],
     shipFrom: this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['Google, LLC', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
@@ -33,7 +33,7 @@ export class EmptyMilesForm {
       sid: [''],
     }),
     shipTo: this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['Google, LLC', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
@@ -67,7 +67,7 @@ export class EmptyMilesForm {
       pro: this.formBody.value.specialInstructions?.freightBill,
       si: `EMPTY MILES: ${this.formBody.value.specialInstructions?.emptyMiles} - FREIGHT BILL: ${this.formBody.value.specialInstructions?.freightBill} - OWED: ${this.formBody.value.specialInstructions?.owed} per mile for ${this.formBody.value.specialInstructions?.emptyMiles} Miles - TRUCK #: ${this.formBody.value.specialInstructions?.truckNumber}`,
       pp: "X",
-      con1: this.formBody.value.specialInstructions?.freightBill,
+      con1: "Empty Miles",
       pkgs1: this.formBody.value.specialInstructions?.emptyMiles,
       wgt1: "1",
       psy1: "N",
@@ -83,8 +83,6 @@ export class EmptyMilesForm {
       Text1: this.formBody.value.date,
       Text2: this.formBody.value.specialInstructions?.truckNumber
     }
-
-    console.log("Successful Verification. Here's the Body: ", pdfFields);
     await this.pdfService.fillOutPDFFields(pdfFields);
   }
 
@@ -108,7 +106,7 @@ export class EmptyMilesForm {
       date: this.buildDate,
       trailerNumber: '',
       shipFrom: {
-        name: '',
+        name: 'Google, LLC',
         address: '',
         city: '',
         state: '',
@@ -116,7 +114,7 @@ export class EmptyMilesForm {
         sid: '',
       },
       shipTo: {
-        name: '',
+        name: 'Google, LLC',
         address: '',
         city: '',
         state: '',

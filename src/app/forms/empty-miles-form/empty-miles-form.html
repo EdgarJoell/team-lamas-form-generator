@@ -1,5 +1,5 @@
 @if (isVerified() === false) {
-  <h3>You're actually not supposed to be here???</h3>
+  <h3>You're not supposed to be here...</h3>
 } @else {
   <form [formGroup]="formBody">
     <div class="input-div">
@@ -71,7 +71,7 @@
     <div formGroupName="specialInstructions">
       <h3>Special Instructions: </h3>
       <div class="input-div">
-        <label for="specialInstructionsEmptyMiles">Empty Miles: </label>
+        <label for="specialInstructionsEmptyMiles">Empty Miles Amount: </label>
         <input id="specialInstructionsEmptyMiles" formControlName="emptyMiles">
       </div>
       <div class="input-div">
@@ -79,7 +79,7 @@
         <input id="specialInstructionsFreightBill" formControlName="freightBill">
       </div>
       <div class="input-div">
-        <label for="specialInstructionsOwed">Owed: </label>
+        <label for="specialInstructionsOwed">Owed (price per mile): </label>
         <input id="specialInstructionsOwed" formControlName="owed">
       </div >
       <div class="input-div">
