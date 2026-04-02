@@ -1,7 +1,11 @@
-import {Type} from '@angular/core';
-
 export interface FormType {
   name: string,
   title: string,
-  component: Type<any> | null
+  formEnum: FormTypeEnum
+}
+
+export enum FormTypeEnum {
+  EMPTY_MILES = "Empty Miles",
+  LAYOVER = "TONU",
+  GUARANTEE = "Guarantee"
 }
