@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PDFCheckBox, PDFDocument, PDFDropdown, PDFField, PDFRadioGroup, PDFTextField} from "pdf-lib";
-import {EmptyMilesPDFFields, GuaranteePDFFields, LayoverPDFFields} from '../../models/CustomPDFFields';
+import {CustomPDFFields} from '../../models/CustomPDFFields';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +33,7 @@ export class PdfService {
     });
   }
 
-  async fillOutPDFFields(fields: EmptyMilesPDFFields | GuaranteePDFFields | LayoverPDFFields): Promise<void> {
+  async fillOutPDFFields(fields: CustomPDFFields): Promise<void> {
     const fileName: string = `${fields.date}-bill-of-lading-${fields.con1}.pdf`;
     const pdfDoc: PDFDocument = await this.fetchAndBuild();
 
