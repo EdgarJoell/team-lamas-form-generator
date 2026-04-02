@@ -10,7 +10,107 @@
   </div>
 
   @if (chosenForm()) {
-    <ng-container [ngComponentOutlet]="chosenForm()!.component" />
+    @if (verificationService.isAllowed()) {
+      <form [formGroup]="formBody">
+        <div class="input-div">
+          <label for="date" >Date: </label>
+          <input id="date" type="date" formControlName="date" />
+        </div>
+
+        <div class="input-div">
+          <label for="trailerNumber">Trailer Number: </label>
+          <input id="trailerNumber" formControlName="trailerNumber">
+        </div>
+
+        <div formGroupName="shipFrom">
+          <h3>Ship From: </h3>
+          <div class="input-div">
+            <label for="shipFromName">Name: </label>
+            <input id="shipFromName" formControlName="name">
+          </div>
+          <div class="input-div">
+            <label for="shipFromAddress">Address: </label>
+            <input id="shipFromAddress" formControlName="address">
+          </div>
+          <div class="input-div">
+            <label for="shipFromCity">City: </label>
+            <input id="shipFromCity" formControlName="city">
+          </div>
+          <div class="input-div">
+            <label for="shipFromState">State: </label>
+            <input id="shipFromState" formControlName="state">
+          </div>
+          <div class="input-div">
+            <label for="shipFromZip">Zip: </label>
+            <input id="shipFromZip" formControlName="zip">
+          </div>
+          <div class="input-div">
+            <label for="shipFromSid">(Optional) SID#: </label>
+            <input id="shipFromSid" formControlName="sid">
+          </div>
+        </div>
+
+        <div formGroupName="shipTo">
+          <h3>Ship To: </h3>
+          <div class="input-div">
+            <label for="shipToName">Name: </label>
+            <input id="shipToName" formControlName="name">
+          </div>
+          <div class="input-div">
+            <label for="shipToAddress">Address: </label>
+            <input id="shipToAddress" formControlName="address">
+          </div>
+          <div class="input-div">
+            <label for="shipToCity">City: </label>
+            <input id="shipToCity" formControlName="city">
+          </div>
+          <div class="input-div">
+            <label for="shipToState">State: </label>
+            <input id="shipToState" formControlName="state">
+          </div>
+          <div class="input-div">
+            <label for="shipToZip">Zip: </label>
+            <input id="shipToZip" formControlName="zip">
+          </div>
+          <div class="input-div">
+            <label for="shipToCid">(Optional) CID#: </label>
+            <input id="shipToCid" formControlName="cid">
+          </div>
+        </div>
+
+        <div formGroupName="specialInstructions">
+          <h3>Special Instructions: </h3>
+          <div class="input-div">
+            <label for="specialInstructionsEmptyMiles">Empty Miles Amount: </label>
+            <input id="specialInstructionsEmptyMiles" formControlName="emptyMiles">
+          </div>
+          <div class="input-div">
+            <label for="specialInstructionsFreightBill">Freight Bill: </label>
+            <input id="specialInstructionsFreightBill" formControlName="freightBill">
+          </div>
+          <div class="input-div">
+            <label for="specialInstructionsOwed">Owed (price per mile): </label>
+            <input id="specialInstructionsOwed" formControlName="owed">
+          </div >
+          <div class="input-div">
+            <label for="specialInstructionsTruckNumber">Truck #: </label>
+            <input id="specialInstructionsTruckNumber" formControlName="truckNumber">
+          </div>
+        </div>
+
+        <div class="button">
+          <button type="button" (click)="resetForm()">Reset Form</button>
+          <button type="button" (click)="startVerification()" [disabled]="formBody.invalid">Generate PDF</button>
+        </div>
+      </form>
+    } @else {
+      <h3>You're not supposed to be here...</h3>
+    }
   }
+
+  @if (isInVerification()) {
+    <app-verification-modal (isVerified)="handleIsVerified($event)" />
+  }
+
 </div>
 
