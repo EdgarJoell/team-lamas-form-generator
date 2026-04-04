@@ -112,5 +112,9 @@
     <app-verification-modal (isVerified)="handleIsVerified($event)" />
   }
 
+  @if (isCreatingPdf()) {
+    <app-loading />
+  }
+
 </div>
 
