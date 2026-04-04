@@ -1,0 +1,89 @@
+{
+  "configVersion": 1,
+  "timestamp": 1775277089480,
+  "index": "/team-lamas-form-generator/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/team-lamas-form-generator/index.html",
+        "/team-lamas-form-generator/main-NRMM46IE.js",
+        "/team-lamas-form-generator/manifest.webmanifest",
+        "/team-lamas-form-generator/styles-64I7FPPI.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/team-lamas-form-generator/assets/background-img.png",
+        "/team-lamas-form-generator/assets/blank-pdf.pdf",
+        "/team-lamas-form-generator/assets/team-logo.png",
+        "/team-lamas-form-generator/favicon.png",
+        "/team-lamas-form-generator/icons/icon-128x128 2.png",
+        "/team-lamas-form-generator/icons/icon-128x128.png",
+        "/team-lamas-form-generator/icons/icon-144x144.png",
+        "/team-lamas-form-generator/icons/icon-152x152 2.png",
+        "/team-lamas-form-generator/icons/icon-152x152.png",
+        "/team-lamas-form-generator/icons/icon-192x192.png",
+        "/team-lamas-form-generator/icons/icon-384x384 2.png",
+        "/team-lamas-form-generator/icons/icon-384x384.png",
+        "/team-lamas-form-generator/icons/icon-512x512.png",
+        "/team-lamas-form-generator/icons/icon-72x72.png",
+        "/team-lamas-form-generator/icons/icon-96x96.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/team-lamas-form-generator/assets/background-img.png": "99dc2954eca767c17314713295cdb6e6e728be64",
+    "/team-lamas-form-generator/assets/blank-pdf.pdf": "021b210c481067967b51cac3df4dd98933cdb5f7",
+    "/team-lamas-form-generator/assets/team-logo.png": "d5d0f0706147ab8a8822a2faafe6dbbd112a191e",
+    "/team-lamas-form-generator/favicon.png": "d7c7e8af1bf37208df95e1c9dbce23e247ea5370",
+    "/team-lamas-form-generator/icons/icon-128x128 2.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/team-lamas-form-generator/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/team-lamas-form-generator/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/team-lamas-form-generator/icons/icon-152x152 2.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/team-lamas-form-generator/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/team-lamas-form-generator/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/team-lamas-form-generator/icons/icon-384x384 2.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/team-lamas-form-generator/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/team-lamas-form-generator/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/team-lamas-form-generator/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/team-lamas-form-generator/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/team-lamas-form-generator/index.html": "6fc60055702e1d9d54e2568a38275c7b1a6113d6",
+    "/team-lamas-form-generator/main-NRMM46IE.js": "9c45d9c7a67d025154f362ced28dd661f085f535",
+    "/team-lamas-form-generator/manifest.webmanifest": "78eb4754f71da914e2c038ac974891e7fa163444",
+    "/team-lamas-form-generator/styles-64I7FPPI.css": "cad5010abe29bd560f604a71e1f890412d471bc8"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
