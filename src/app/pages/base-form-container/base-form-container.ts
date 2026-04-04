@@ -6,13 +6,15 @@ import {VerificationService} from '../../services/verification/verification-serv
 import {FormFields} from '../../models/FormFields';
 import {FormType, FormTypeEnum} from '../../models/FormType';
 import {FormService} from '../../services/form/form-service';
+import {Loading} from '../../components/loading/loading';
 
 @Component({
   selector: 'app-base-form-container',
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    VerificationModal
+    VerificationModal,
+    Loading
   ],
   templateUrl: './base-form-container.html',
   styleUrl: './base-form-container.css',
@@ -26,6 +28,7 @@ export class BaseFormContainer {
   today: Date = new Date();
   buildDate: string = `${this.today.getFullYear()}-${String(this.today.getMonth() + 1).padStart(2, '0')}-${String(this.today.getDate()).padStart(2, '0')}`;
   isInVerification: WritableSignal<boolean> = signal(false);
+  isCreatingPdf: WritableSignal<boolean> = signal(false);
   forms: FormType[] = [
     { name: 'empty-miles', title: "Empty Miles", formEnum: FormTypeEnum.EMPTY_MILES },
     { name: "layover", title: "Layover (TONU)", formEnum: FormTypeEnum.LAYOVER },
@@ -67,8 +70,13 @@ export class BaseFormContainer {
   async submitForm() {
     if (!this.formBody || !this.verificationService.isVerified()) return
 
-    const fields = this.formService.buildFormObject(this.formBody, this.chosenForm()?.formEnum!)
-    await this.pdfService.fillOutPDFFields(fields);
+    try {
+      this.isCreatingPdf.set(true);
+      const fields = this.formService.buildFormObject(this.formBody, this.chosenForm()?.formEnum!)
+      await this.pdfService.fillOutPDFFields(fields);
+    } finally {
+      this.isCreatingPdf.set(false);
+    }
   }
 
   async handleIsVerified(isTeamLamas: boolean) {
