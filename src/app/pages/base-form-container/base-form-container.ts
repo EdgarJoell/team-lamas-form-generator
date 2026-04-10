@@ -38,6 +38,12 @@ export class BaseFormContainer {
   chosen(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
     this.chosenForm.set(this.forms.find(form => form.name === value) ?? null);
+
+    if (this.chosenForm()?.formEnum == FormTypeEnum.GUARANTEE) {
+      this.formBody.get("specialInstructions.emptyMiles")?.removeValidators(Validators.required);
+    } else {
+      this.formBody.get("specialInstructions.emptyMiles")?.setValidators(Validators.required);
+    }
   }
 
   formBody: FormGroup<FormFields> = this.formBuilder.group({
@@ -60,7 +66,7 @@ export class BaseFormContainer {
       cid: [''],
     }),
     specialInstructions: this.formBuilder.group({
-      emptyMiles: ['', Validators.required],
+      emptyMiles: [''],
       freightBill: ['', Validators.required],
       owed: ['', Validators.required],
       truckNumber: ['580636', Validators.required],
@@ -128,4 +134,6 @@ export class BaseFormContainer {
       }
     });
   }
+
+  protected readonly FormTypeEnum = FormTypeEnum;
 }

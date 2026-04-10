@@ -12,40 +12,42 @@
   @if (chosenForm()) {
     @if (verificationService.isAllowed()) {
       <form [formGroup]="formBody">
+        <p class="required-field">* = Required Field</p>
+
         <div class="input-div">
-          <label for="date" >Date: </label>
+          <label for="date" ><span class="required-field">*</span>Date : </label>
           <input id="date" type="date" formControlName="date" />
         </div>
 
         <div class="input-div">
-          <label for="trailerNumber">Trailer Number: </label>
+          <label for="trailerNumber"><span class="required-field">*</span>Trailer Number: </label>
           <input id="trailerNumber" formControlName="trailerNumber">
         </div>
 
         <div formGroupName="shipFrom">
           <h3>Ship From: </h3>
           <div class="input-div">
-            <label for="shipFromName">Name: </label>
+            <label for="shipFromName"><span class="required-field">*</span>Name: </label>
             <input id="shipFromName" formControlName="name">
           </div>
           <div class="input-div">
-            <label for="shipFromAddress">Address: </label>
+            <label for="shipFromAddress"><span class="required-field">*</span>Address: </label>
             <input id="shipFromAddress" formControlName="address">
           </div>
           <div class="input-div">
-            <label for="shipFromCity">City: </label>
+            <label for="shipFromCity"><span class="required-field">*</span>City: </label>
             <input id="shipFromCity" formControlName="city">
           </div>
           <div class="input-div">
-            <label for="shipFromState">State: </label>
+            <label for="shipFromState"><span class="required-field">*</span>State: </label>
             <input id="shipFromState" formControlName="state">
           </div>
           <div class="input-div">
-            <label for="shipFromZip">Zip: </label>
+            <label for="shipFromZip"><span class="required-field">*</span>Zip: </label>
             <input id="shipFromZip" formControlName="zip">
           </div>
           <div class="input-div">
-            <label for="shipFromSid">(Optional) SID#: </label>
+            <label for="shipFromSid">SID#: </label>
             <input id="shipFromSid" formControlName="sid">
           </div>
         </div>
@@ -53,47 +55,50 @@
         <div formGroupName="shipTo">
           <h3>Ship To: </h3>
           <div class="input-div">
-            <label for="shipToName">Name: </label>
+            <label for="shipToName"><span class="required-field">*</span>Name: </label>
             <input id="shipToName" formControlName="name">
           </div>
           <div class="input-div">
-            <label for="shipToAddress">Address: </label>
+            <label for="shipToAddress"><span class="required-field">*</span>Address: </label>
             <input id="shipToAddress" formControlName="address">
           </div>
           <div class="input-div">
-            <label for="shipToCity">City: </label>
+            <label for="shipToCity"><span class="required-field">*</span>City: </label>
             <input id="shipToCity" formControlName="city">
           </div>
           <div class="input-div">
-            <label for="shipToState">State: </label>
+            <label for="shipToState"><span class="required-field">*</span>State: </label>
             <input id="shipToState" formControlName="state">
           </div>
           <div class="input-div">
-            <label for="shipToZip">Zip: </label>
+            <label for="shipToZip"><span class="required-field">*</span>Zip: </label>
             <input id="shipToZip" formControlName="zip">
           </div>
           <div class="input-div">
-            <label for="shipToCid">(Optional) CID#: </label>
+            <label for="shipToCid">CID#: </label>
             <input id="shipToCid" formControlName="cid">
           </div>
         </div>
 
         <div formGroupName="specialInstructions">
           <h3>Special Instructions: </h3>
+
+          @if (chosenForm()?.formEnum !== FormTypeEnum.GUARANTEE) {
+            <div class="input-div">
+              <label for="specialInstructionsEmptyMiles"><span class="required-field">*</span>Empty Miles Amount: </label>
+              <input id="specialInstructionsEmptyMiles" formControlName="emptyMiles">
+            </div>
+          }
           <div class="input-div">
-            <label for="specialInstructionsEmptyMiles">Empty Miles Amount: </label>
-            <input id="specialInstructionsEmptyMiles" formControlName="emptyMiles">
-          </div>
-          <div class="input-div">
-            <label for="specialInstructionsFreightBill">Freight Bill: </label>
+            <label for="specialInstructionsFreightBill"><span class="required-field">*</span>Freight Bill: </label>
             <input id="specialInstructionsFreightBill" formControlName="freightBill">
           </div>
           <div class="input-div">
-            <label for="specialInstructionsOwed">Owed (price per mile): </label>
+            <label for="specialInstructionsOwed"><span class="required-field">*</span>Owed (price per mile)/Total Owed: </label>
             <input id="specialInstructionsOwed" formControlName="owed">
           </div >
           <div class="input-div">
-            <label for="specialInstructionsTruckNumber">Truck #: </label>
+            <label for="specialInstructionsTruckNumber"><span class="required-field">*</span>Truck #: </label>
             <input id="specialInstructionsTruckNumber" formControlName="truckNumber">
           </div>
         </div>

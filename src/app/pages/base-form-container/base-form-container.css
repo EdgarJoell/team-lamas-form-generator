@@ -1,6 +1,10 @@
 select {
 }
 
+.required-field {
+  color: red;
+}
+
 #base-container {
   width: 100%;
   margin: auto;
