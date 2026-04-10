@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CustomPDFFields} from '../../models/CustomPDFFields';
 import {FormTypeEnum} from '../../models/FormType';
 import {FormFields} from '../../models/FormFields';
@@ -9,6 +9,14 @@ import {FormGroup} from '@angular/forms';
 })
 export class FormService {
   buildFormObject(formBody: FormGroup<FormFields>, type: FormTypeEnum): CustomPDFFields {
+    let builtSi: string = "";
+
+    if (type === FormTypeEnum.GUARANTEE) {
+      builtSi = `Guarantee Pay: $${formBody.value.specialInstructions?.owed} Freight Bill: ${formBody.value.specialInstructions?.freightBill} Truck #: ${formBody.value.specialInstructions?.truckNumber}`
+    } else {
+      builtSi = `${type}: ${formBody.value.specialInstructions?.emptyMiles} - FREIGHT BILL: ${formBody.value.specialInstructions?.freightBill} - OWED: ${formBody.value.specialInstructions?.owed} per mile for ${formBody.value.specialInstructions?.emptyMiles} Miles - TRUCK #: ${formBody.value.specialInstructions?.truckNumber}`
+    }
+
     return {
       date: formBody.value.date,
       sfname: formBody.value.shipFrom?.name,
@@ -23,7 +31,7 @@ export class FormService {
       scac: "LSTR",
       stsid: formBody.value.shipTo?.cid,
       pro: formBody.value.specialInstructions?.freightBill,
-      si: `${type}: ${formBody.value.specialInstructions?.emptyMiles} - FREIGHT BILL: ${formBody.value.specialInstructions?.freightBill} - OWED: ${formBody.value.specialInstructions?.owed} per mile for ${formBody.value.specialInstructions?.emptyMiles} Miles - TRUCK #: ${formBody.value.specialInstructions?.truckNumber}`,
+      si: builtSi,
       pp: "X",
       con1: `${type}`,
       pkgs1: formBody.value.specialInstructions?.emptyMiles,
