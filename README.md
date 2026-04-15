@@ -22,3 +22,5 @@ make these forms before arriving at their destinations.
 4) Include passcode verification with bcrypt encryption to ensure only they can create these forms.
 5) Utilizes the PDF library (pdf-lib package) to do all PDF modification and creation.
 6) (Future plan) Includes GitHub Actions to automate deployment to GitHub Pages once features get merged to main branch.
+
+## Example Usage
