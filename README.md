@@ -24,3 +24,11 @@ make these forms before arriving at their destinations.
 6) (Future plan) Includes GitHub Actions to automate deployment to GitHub Pages once features get merged to main branch.
 
 ## Example Usage
+### Home Screen
+<img width="330" height="715" alt="IMG_2152" src="https://github.com/user-attachments/assets/79f43b84-3ef0-479a-a128-33ec6b66c041" />
+
+### Form 
+<img width="330" height="715" alt="IMG_2154" src="https://github.com/user-attachments/assets/e0b720c4-d411-4f2c-8f5e-19054169ee88" />
+
+### Verification Modal
+<img width="330" height="715" alt="IMG_2155" src="https://github.com/user-attachments/assets/11441b64-5c74-4d56-af70-cd3e3b80d13f" />
