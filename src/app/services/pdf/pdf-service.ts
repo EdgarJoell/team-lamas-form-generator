@@ -44,9 +44,16 @@ export class PdfService {
         if (fieldName === 'si') {
           field.enableMultiline();
           field.setFontSize(0);
-          field.setText(fields.si);
-        } else {
+        } else if (fieldName === 'value') {
+          field.setMaxLength(fields.value.length);
+        }
+
+        try {
           field.setText(String(value));
+        } catch (e) {
+          console.log(`Error: ${e}`);
+          console.log(`Field name: ${fieldName}, and value: ${value}`);
+          throw new Error(`There was an error with this field name: $${fieldName} : Error ${e}`);
         }
       } else if (field instanceof PDFCheckBox) {
         value ? field.check() : field.uncheck();
